@@ -1,7 +1,7 @@
 <?php
 
 require('incl/config.inc.php'); // require config
-$error = ''; // initialize error
+$msg = ''; // initialize message
 
 //check if form was submitted
 
@@ -11,14 +11,15 @@ if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['name'])
     $email = $_POST['email'];
     $password = $_POST['password'];
     if ($_POST['password'] !== $_POST['password1']) {
-        $error = '<div class="alert alert-danger" role="alert">Passwords do not match</div>';
+        $msg = '<div class="alert alert-danger" role="alert">Passwords do not match</div>';
     } else {
         try {
             $db->addUser($name, $email, $password);
+            header('location: login.php?r');
         } catch (Exception $e) {
-            $error = '<div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div>';
-
+            $msg = '<div class="alert alert-danger" role="alert">' . $e->getMessage() . '</div>';
         }
+
     }
 
 }
@@ -47,7 +48,7 @@ if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['name'])
         <h1 class="h3 mb-3 fw-normal">Register</h1>
         <p class="mt-2 mb-1">Already registered? <a href="login.php">Sign In</a></p>
         <br>
-        <?= $error ?>
+        <?= $msg ?>
         <div class="form-floating">
             <input type="text" class="form-control" id="nameInput" placeholder="John Doe" name="name"
                    required autofocus>
@@ -70,7 +71,7 @@ if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['name'])
         </div>
 
         <button class="btn btn-primary w-100 py-2" type="submit">Register</button>
-        <p class="mt-5 mb-3 text-body-secondary">&copy; <?= date('Y') //Set current year         ?> CinemaSync</p>
+        <p class="mt-5 mb-3 text-body-secondary">&copy; <?= date('Y') //Set current year          ?> CinemaSync</p>
     </form>
 
 

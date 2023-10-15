@@ -1,7 +1,7 @@
 <?php
 
 require('incl/config.inc.php'); // require config
-$error = ''; // initialize error
+$msg = ''; // initialize error
 
 // check if user already logged in
 if (isset($_SESSION['email'])) {
@@ -9,6 +9,10 @@ if (isset($_SESSION['email'])) {
     exit();
 }
 //end check
+
+if (isset($_GET['r'])) {
+    $msg = '<div class="alert alert-success">Success, you may login.</div>';
+}
 
 //check if form was submitted
 //init login function
@@ -20,7 +24,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $_SESSION['email'] = $email; // set session email to email
         header('Location: dashboard.php'); // redirect to dashboard
     } else {
-        $error = '<div class="alert alert-danger" role="alert">Invalid Login details</div>'; // set error
+        $msg = '<div class="alert alert-danger" role="alert">Invalid Login details</div>'; // set error
     }
 }
 //end login function
@@ -48,7 +52,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
         <p class="mt-2 mb-1">Not Registered? <a href="register.php">Register</a></p>
         <br>
-        <?= $error ?>
+        <?= $msg ?>
         <div class="form-floating">
             <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email"
                    required autofocus>
@@ -67,7 +71,7 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
             </label>
         </div>-->
         <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-body-secondary">&copy; <?= date('Y') //Set current year    ?> CinemaSync</p>
+        <p class="mt-5 mb-3 text-body-secondary">&copy; <?= date('Y') //Set current year       ?> CinemaSync</p>
     </form>
 
 </body>
