@@ -11,33 +11,51 @@
 class Database
 {
 
-    public $db;
-    public $chiper;
+    public PDO $db;
 
+    /**
+     * @param $DB_NAME
+     * @param $DB_HOST
+     * @param $DB_USER
+     * @param $DB_PASSWORD
+     */
     function __construct($DB_NAME, $DB_HOST, $DB_USER, $DB_PASSWORD)
     {
-        $this->db = new PDO("mysql:host=" . $DB_HOST . ";dbname=" . $DB_NAME, $DB_USER, $DB_PASSWORD);
+        $this->db = new PDO('mysql:host=' . $DB_HOST . ';dbname=' . $DB_NAME, $DB_USER, $DB_PASSWORD);
     }
 
-    function getUser($email)
+    /**
+     * function returns a User object if email exists
+     * @param $email
+     * @return User|null
+     */
+    function getUser($email): User|null
     {
-        $stmt = $this->db->prepare("SELECT id FROM users WHERE email = :email");
-        $stmt->bindParam("email", $email);
+        $stmt = $this->db->prepare('SELECT id FROM users WHERE email = :email');
+        $stmt->bindParam('email', $email);
         $stmt->execute();
         if ($stmt->rowCount() === 0) {
             return null;
         }
-
         foreach ($stmt->fetchAll() as $row) {
             $id = $row['id'];
             return new User($id, $this);
         }
+        return null;
     }
 
-    function checkUser($email, $password)
+    /**
+     * Function to validate user login
+     * @param $email
+     * @param $password
+     * @return bool
+     */
+    function checkUser($email, $password): bool
     {
-        $stmt = $this->db->prepare("SELECT id, password FROM users WHERE email = :email");
-        $stmt->bindParam("email", $email);
+        $hash = '';
+
+        $stmt = $this->db->prepare('SELECT id, password FROM users WHERE email = :email');
+        $stmt->bindParam('email', $email);
         $stmt->execute();
         if ($stmt->rowCount() === 0) {
             return false;
@@ -48,64 +66,66 @@ class Database
         return password_verify($password, $hash);
     }
 
-    function addUser($email, $password)
+    /**
+     * Function to add user to database
+     * @param $email
+     * @param $password
+     * @return bool
+     * @throws Exception
+     */
+    function addUser($name, $email, $password): bool
     {
         $date = date('Y-m-d H:i:s');
-        //Check if username exist
         if ($this->getUser($email) !== null) {
-            return false;
+            throw new Exception('User already exists');
         }
-        //Check if email exists
-        $get = $this->db->prepare("SELECT id FROM users WHERE email = :email");
-        $get->bindParam("email", $email);
-        $get->execute();
-        if ($get->rowCount() !== 0) {
-            return false;
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception('Invalid E-Mail');
         }
-
-        //Add user
-        $length = 8;
-
-        if (function_exists("random_bytes")) {
-            $bytes = random_bytes(ceil($length / 2));
-        } elseif (function_exists("openssl_random_pseudo_bytes")) {
-            $bytes = openssl_random_pseudo_bytes(ceil($length / 2));
+        if (strlen($password) < 8) {
+            throw new Exception('Password must be 8 characters or longer');
         }
 
-        $ref = substr(bin2hex($bytes), 0, $length);
+        $password_hash = password_hash($password, PASSWORD_BCRYPT);
+        $stmt = $this->db->prepare('INSERT INTO users (name, email, password, updated_at, created_at) VALUES (:name, :email, :password, :updated_at, :created_at)');
+        $stmt->bindParam('name', $name);
+        $stmt->bindParam('email', $email);
+        $stmt->bindParam('password', $password_hash);
+        $stmt->bindParam('updated_at', $date);
+        $stmt->bindParam('created_at', $date);
+        return $stmt->execute();
 
-        $hashed = password_hash($password, PASSWORD_BCRYPT);
-        $stmt1 = $this->db->prepare("INSERT INTO users (email, password, updated_at, created_at) VALUES (:email,:pass, :updated_at, :created_at)");
-        $stmt1->bindParam("email", $email);
-        $stmt1->bindParam("pass", $hashed);
-        $stmt1->bindParam('updated_at', $date);
-        $stmt1->bindParam("created_at", $date);
-        $stmt1->execute();
-        return true;
     }
 
-    function getUserCount()
+    /**
+     * returns # of users in the database (to be used later)
+     * @return int
+     */
+    function getUserCount(): int
     {
-        $stmt = $this->db->prepare("SELECT null FROM users");
+        $stmt = $this->db->prepare('SELECT null FROM users');
         $stmt->execute();
         return $stmt->rowCount();
     }
 
 
-
-    function returnUsers()
+    /**
+     * returns all the users in an html table (to be used later)
+     * @return string
+     */
+    function returnUsers(): string
     {
-        $htmlCode = "";
-        $stmt = $this->db->prepare("SELECT * FROM users");
+        $htmlCode = '';
+        $stmt = $this->db->prepare('SELECT * FROM users');
         $stmt->execute();
         foreach ($stmt->fetchAll() as $row) {
             $user = new User($row['id'], $this);
-            $rank = "User";
+            $rank = 'User';
 
 
             $htmlCode .= '
       <tr>
-       <th scope="row">' . $user->id . '</th>
+       <th scope=\'row\'>' . $user->id . '</th>
        <td>' . $user->getData('email') . '</td>
        <td>' . $rank . '</td>
       </tr>';

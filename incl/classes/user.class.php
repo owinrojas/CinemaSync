@@ -2,38 +2,62 @@
 
 /**
  *
- * User Class for Generator Template
+ * User Class
  *
  * @version 1.0
  *
  */
 class User
 {
-    public $id;
-    public $db;
+    public int $id; // user id
+    public object $db; // database object
+    private mixed $data; // user data
 
-    function __construct($id, $db)
+    /**
+     * @param $id
+     * @param $db
+     */
+    public function __construct($id, $db)
     {
         $this->id = $id;
-        $this->db = $db;
+        $this->db = $db; // use current database object
+        $this->setData(); // get the user data and save to $data
     }
 
-    function isAdmin()
+    /**
+     * returns true if user is admin
+     * will prob not be used
+     * @return bool
+     */
+    public function isAdmin(): bool
     {
-        $rank = $this->getData("rank");
+        $rank = $this->getData('rank');
         if ($rank === '1') {
             return true;
         }
         return false;
     }
-    function getData($data)
+
+    /**
+     * return user data from the array
+     * @param $data
+     * @return mixed
+     */
+    public function getData($data): mixed
     {
-        $stmt = $this->db->db->prepare("SELECT * FROM users WHERE id = :id");
-        $stmt->bindParam("id", $this->id);
-        $stmt->execute();
-        foreach ($stmt->fetchAll() as $row) {
-            return $row[$data];
-        }
-        return null;
+        return $this->data[$data];
     }
+
+    /**
+     * function saves user data locally to limit number of queries made
+     * @return void
+     */
+    public function setData(): void
+    {
+        $stmt = $this->db->db->prepare('SELECT * FROM users WHERE id = :id');
+        $stmt->bindParam('id', $this->id);
+        $stmt->execute();
+        $this->data = $stmt->fetch();
+    }
+
 }
