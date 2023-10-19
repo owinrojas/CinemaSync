@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FullertonProj</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-links">
+                <a href="#about-us">About Us</a>
+                <a href="#register-login">Register/Login</a>
+            </div>
+        </div>
+    </nav>
+    <div id="main-container">
+        <div id="genre-list"></div>
+
+        <div class="category-container" id="genre-movies-container">
+            '<h2 id="genre-title">Movies by Genre</h2>'    
+            <div id="movie-grid" class="movies-container"></div>
+        </div>
+    </div>
+
+<div id="movie-modal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">X</button>
+        <div class="modal-header">
+            <img id="modal-poster" src="">
+            <div class="modal-title-details">
+                <h2 id="modal-title"></h2>
+                <p id="modal-genre"></p>
+                <p id="modal-cast"></p>
+            </div>
+        </div>
+        <div class="modal-main-content">
+            <p id="modal-overview"></p>
+            <div id="modal-trailer-container"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script defer src="script.js"></script>
+
+</body>
+</html>
+
+</body>
+
+</html>
