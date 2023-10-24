@@ -36,7 +36,7 @@ async function fetchMoviesByCategory(category) {
     return response.results;
 }
 
-document.addEventListener('click', function(event) {
+document.addEventListener('click', function (event) {
     if (event.target.matches('.genre-list-item')) {
         const genreId = event.target.getAttribute("data-genre-id");
         const genreName = event.target.getAttribute("data-genre-name");
@@ -65,28 +65,28 @@ function closeModal() {
 function createMovieCard(movie) {
     const movieCard = document.createElement('div');
     movieCard.classList.add('movie-card');
-    
+
     const movieImage = document.createElement('img');
     movieImage.src = `${imageBaseURL}w500${movie.poster_path}`;
-    
+
     const movieTitle = document.createElement('div');
     movieTitle.classList.add('title');
     movieTitle.textContent = movie.title;
-    
+
     const movieYear = document.createElement('div');
     movieYear.classList.add('year');
     movieYear.textContent = (new Date(movie.release_date)).getFullYear();
-    
+
     const movieRating = document.createElement('div');
     movieRating.classList.add('rating');
     movieRating.textContent = movie.vote_average;
-    
+
     movieCard.append(movieImage, movieTitle, movieYear, movieRating);
-    
+
     movieCard.addEventListener('click', () => {
         openMovieModal(movie);
     });
-    
+
     return movieCard;
 }
 
@@ -121,7 +121,7 @@ function searchMovies(event) {
     const searchField = document.getElementById("search-bar");
     const searchResultsContainer = document.getElementById("search-results");
     const movieGrid = searchResultsContainer.querySelector(".movies-container");
-    
+
     if (!movieGrid) {
         console.error('Error: Unable to locate the movieGrid element.');
         return;
@@ -139,23 +139,23 @@ function searchMovies(event) {
         popularContainer.style.display = "block";
         nowPlayingContainer.style.display = "block";
         topRatedContainer.style.display = "block";
-        
+
         return;
     }
 
     clearTimeout(window.searchTimeout);
-    window.searchTimeout = setTimeout(async function() {
+    window.searchTimeout = setTimeout(async function () {
         const query = searchField.value;
         const response = await apiRequest(`/search/movie?query=${query}&language=en-US&page=1`);
-        
+
         movieGrid.innerHTML = "";
 
         popularContainer.style.display = "none";
         nowPlayingContainer.style.display = "none";
         topRatedContainer.style.display = "none";
-        
+
         searchResultsContainer.style.display = "block";
-        
+
         const titleElement = document.querySelector('#genre-title');
         if (titleElement) {
             titleElement.textContent = `Search Results for "${query}"`;
@@ -198,7 +198,7 @@ async function openMovieModal(movie) {
     const modalGenre = document.getElementById('modal-genre');
     const modalCast = document.getElementById('modal-cast');
     const trailerContainer = document.getElementById('modal-trailer-container');
-    
+
     trailerContainer.innerHTML = '';
 
     const movieDetails = await apiRequest(`/movie/${movie.id}?append_to_response=releases,casts,videos`);
@@ -218,7 +218,7 @@ async function openMovieModal(movie) {
     modalTitle.textContent = title;
     modalOverview.textContent = overview;
     modalGenre.textContent = genres.map(genre => genre.name).join(", ");
-    modalCast.textContent = cast.slice(0, 5).map(actor => actor.name).join(", ");  
+    modalCast.textContent = cast.slice(0, 5).map(actor => actor.name).join(", ");
 
     for (const { key, name } of filterVideos(videos)) {
         const videoCard = document.createElement("div");
