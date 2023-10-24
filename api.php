@@ -41,6 +41,7 @@ switch ($action) {
     case 'loggedin':
 
         break;
+
     default:
         die('Invalid action');
         break;

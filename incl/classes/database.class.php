@@ -162,11 +162,12 @@ class Database
         if ($precheck->rowCount() > 0) {
             return false;
         }
-
+        $movie = $this->getMovieName($movie_id);
         //insert into database
-        $stmt = $this->db->prepare('INSERT INTO movies (user_id, movie_id, release_date, updated_at, created_at) VALUES (:user_id, :movie_id, :release_date, :updated_at, :created_at)');
+        $stmt = $this->db->prepare('INSERT INTO movies (user_id, movie_id, movie_name, release_date, updated_at, created_at) VALUES (:user_id, :movie_id, :movie_name, :release_date, :updated_at, :created_at)');
         $stmt->bindParam('user_id', $user_id);
         $stmt->bindParam('movie_id', $movie_id);
+        $stmt->bindParam('movie_name', $movie);
         $stmt->bindParam('release_date', $release_date);
         $stmt->bindParam('updated_at', $date);
         $stmt->bindParam('created_at', $date);
@@ -208,12 +209,13 @@ class Database
         $stmt->execute();
     }
 
-    function getMovies(){
+    function getMovies()
+    {
         $stmt = $this->db->prepare('SELECT * FROM movies');
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    
+
 
     /**
      * The function `getMovieRelease` retrieves the release date of a movie based on its ID using the
@@ -256,4 +258,38 @@ class Database
         }
         return $release_date;
     } // End of function getmovierelease
+
+    /**
+     * The function `getMovieName` makes a GET request to the TMDB API to retrieve the original title
+     * of a movie based on its ID.
+     * 
+     * @param int movie_id The movie_id parameter is an integer that represents the unique identifier
+     * of a movie.
+     * 
+     * @return string the original title of a movie.
+     */
+    private function getMovieName(int $movie_id): string
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.themoviedb.org/3/movie/' . $movie_id . '?api_key=d679741f03a2925a326fb72686aa6130',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer d679741f03a2925a326fb72686aa6130'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        $resp = json_decode($response, true);
+        return $resp['original_title'];
+    }
 }
