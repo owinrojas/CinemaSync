@@ -38,7 +38,7 @@ switch ($action) {
         }
 
         break;
-    case 'loggedin':
+    case 'checkmovie':
 
         break;
 
