@@ -198,8 +198,8 @@ body {
     position: absolute;
     right: 10px;
     top: 10px;
-    background-color: #000;
-    color: #fff;
+    background-color: transparent;
+    color: #000;
     border: none;
     cursor: pointer;
 }
