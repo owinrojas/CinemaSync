@@ -30,7 +30,14 @@ if (isset($_SESSION['email'])) {
 
     <nav class="navbar">
         <div class="navbar-content">
+
+            <?php
+            if ($loggedIn) : // If the user is logged in, show the search bar
+            ?>
             <input type="text" id="search-bar" placeholder="Search..." onkeyup="searchMovies(event)">
+            <?php endif; //End if
+            ?>
+
             <div class="navbar-links">
                 <a href="#about-us">About Us</a>
 
@@ -80,7 +87,7 @@ if (isset($_SESSION['email'])) {
             <h2>Top Rated</h2>
             <div class="movies-container"></div>
         </div>
-        <?php endif;
+        <?php endif; //End if
         ?>
     </div>
 
