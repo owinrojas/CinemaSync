@@ -67,15 +67,15 @@ if (isset($_SESSION['email'])) {
             <div class="movies-container"></div>
         </div>
 
-        <div id="genre-list"></div>
+        <div id="genre-list"></div> <!--Conveniently move this out of the if statement if wanting to test without being logged in-->
 
         <?php
-        if($loggedIn): // If the user is logged in, show the Popular and Top Rated movies
+        if($loggedIn): // If the user is logged in, show whatever is below this
         ?>
 
         
         
-        <div id="search-results" class="category-container">
+        <div id="search-results" class="category-container"> <!--Conveniently move this out of the if statement if wanting to test without being logged in-->
             <div class="movies-container">
             </div>
         </div>
