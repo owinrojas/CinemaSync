@@ -23,7 +23,7 @@ if (isset($_SESSION['email'])) {
 <body>
     <section class="banner">
         <div class="banner-content">
-            <h1>FullertonMovies</h1>
+            <h1>CinemaSync</h1>
             <p>Discover the latest movies.</p>
         </div>
     </section>
@@ -61,25 +61,30 @@ if (isset($_SESSION['email'])) {
             </div>
         </div>
 
-        <div class="category-container" id="popular-movies">
-            <h2>Popular Movies</h2>
-            <div class="movies-container"></div>
-        </div>
-
         <div class="category-container" id="now-playing">
             <h2>Now Playing</h2>
             <div class="movies-container"></div>
         </div>
 
+        <?php
+        if($loggedIn): // If the user is logged in, show the Popular and Top Rated movies
+        ?>
+        <div class="category-container" id="popular-movies">
+            <h2>Popular Movies</h2>
+            <div class="movies-container"></div>
+        </div>
+        
         <div class="category-container" id="top-rated">
             <h2>Top Rated</h2>
             <div class="movies-container"></div>
         </div>
+        <?php endif;
+        ?>
     </div>
 
     <div id="movie-modal">
         <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()">X</button>
+            <button class="close-btn" onclick="closeModal()">Close X</button>
             <div class="modal-header">
                 <img id="modal-poster" src="">
                 <div class="modal-title-details">
