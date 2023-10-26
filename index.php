@@ -54,12 +54,6 @@ if (isset($_SESSION['email'])) {
     </nav>
 
     <div id="main-container">
-        <div id="genre-list"></div>
-
-        <div id="search-results" class="category-container">
-            <div class="movies-container">
-            </div>
-        </div>
 
         <div class="category-container" id="now-playing">
             <h2>Now Playing</h2>
@@ -69,6 +63,14 @@ if (isset($_SESSION['email'])) {
         <?php
         if($loggedIn): // If the user is logged in, show the Popular and Top Rated movies
         ?>
+
+        <div id="genre-list"></div>
+        
+        <div id="search-results" class="category-container">
+            <div class="movies-container">
+            </div>
+        </div>
+
         <div class="category-container" id="popular-movies">
             <h2>Popular Movies</h2>
             <div class="movies-container"></div>
