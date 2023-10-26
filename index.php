@@ -24,7 +24,7 @@ if (isset($_SESSION['email'])) {
     <section class="banner">
         <div class="banner-content">
             <h1>CinemaSync</h1>
-            <p>Discover the latest movies.</p>
+            <p>Discover the latest movies</p>
         </div>
     </section>
 
@@ -67,11 +67,13 @@ if (isset($_SESSION['email'])) {
             <div class="movies-container"></div>
         </div>
 
+        <div id="genre-list"></div>
+
         <?php
         if($loggedIn): // If the user is logged in, show the Popular and Top Rated movies
         ?>
 
-        <div id="genre-list"></div>
+        
         
         <div id="search-results" class="category-container">
             <div class="movies-container">
@@ -95,15 +97,15 @@ if (isset($_SESSION['email'])) {
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">Close X</button>
             <div class="modal-header">
-                <img id="modal-poster" src="">
                 <div class="modal-title-details">
-                    <h2 id="modal-title"></h2>
-                    <p id="modal-genre"></p>
-                    <p id="modal-cast"></p>
+                    <h2 id="modal-title"></h2>  <!--Title of the movie-->
+                    <p id="modal-genre"></p>    <!--Genre of the movie-->
+                    <p id="modal-cast"></p>     <!--Cast of the movie-->
+                    <p id="modal-overview"></p> 
                 </div>
             </div>
             <div class="modal-main-content">
-                <p id="modal-overview"></p>
+                <img id="modal-poster" src="">
                 <div id="modal-trailer-container"></div>
             </div>
         </div>

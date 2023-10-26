@@ -19,6 +19,10 @@ body {
     justify-content: center;
 }
 
+.banner-content { /*Just to center the wording*/
+    text-align: center;
+}
+
 .banner-content h1 {
     color: white;
     font-size: 2.5em;
@@ -207,6 +211,7 @@ body {
 .modal-header {
     display: flex;
     gap: 1rem;
+    flex-direction: column;
 }
 
 .modal-title-details {
@@ -223,6 +228,9 @@ body {
 
 .modal-main-content {
     margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #modal-trailer-container iframe {
