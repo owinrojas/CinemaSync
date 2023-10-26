@@ -32,9 +32,9 @@ switch ($action) {
             die($e->getMessage());
         }
         if ($status) {
-            echo 'Movie added';
+            echo 'Movie saved';
         } else {
-            echo 'Movie already added';
+            echo 'Movie already saved';
         }
 
         break;
