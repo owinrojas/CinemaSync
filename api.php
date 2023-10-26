@@ -41,6 +41,9 @@ switch ($action) {
     case 'checkmovie':
 
         break;
+    case 'loggedin':
+        
+        break;
 
     default:
         die('Invalid action');
