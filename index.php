@@ -39,7 +39,7 @@ if (isset($_SESSION['email'])) {
             ?>
 
             <div class="navbar-links">
-                <a href="#about-us">About Us</a>
+                <a href="aboutUs.php">About Us</a>
 
                 <?php
                 // if user is logged in, show the dashboard button
@@ -49,11 +49,11 @@ if (isset($_SESSION['email'])) {
                     <a href="dashboard.php">Saved Movies</a>
                     <a href="dashboard.php">Logout</a>
 
-                <?php else : //else show the login / register buttons 
+                <?php else : //else show the login / register buttons
                 ?>
                     <a href="login.php">Login</a>
                     <a href="register.php">Register</a>
-                <?php endif; //End if 
+                <?php endif; //End if
                 ?>
 
             </div>
@@ -73,8 +73,8 @@ if (isset($_SESSION['email'])) {
         if($loggedIn): // If the user is logged in, show whatever is below this
         ?>
 
-        
-        
+
+
         <div id="search-results" class="category-container"> <!--Conveniently move this out of the if statement if wanting to test without being logged in-->
             <div class="movies-container">
             </div>
@@ -84,7 +84,7 @@ if (isset($_SESSION['email'])) {
             <h2>Popular Movies</h2>
             <div class="movies-container"></div>
         </div>
-        
+
         <div class="category-container" id="top-rated">
             <h2>Top Rated</h2>
             <div class="movies-container"></div>
@@ -101,7 +101,7 @@ if (isset($_SESSION['email'])) {
                     <h2 id="modal-title"></h2>  <!--Title of the movie-->
                     <p id="modal-genre"></p>    <!--Genre of the movie-->
                     <p id="modal-cast"></p>     <!--Cast of the movie-->
-                    <p id="modal-overview"></p> 
+                    <p id="modal-overview"></p>
                 </div>
             </div>
             <div class="modal-main-content">

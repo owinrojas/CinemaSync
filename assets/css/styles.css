@@ -381,3 +381,13 @@ body {
     padding: 16px;
 }
 
+.heading {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.heading span {
+    text-transform: uppercase;
+    font-size: 6.5rem;
+    border-bottom: black;
+}
