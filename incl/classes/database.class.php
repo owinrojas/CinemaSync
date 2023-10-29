@@ -171,9 +171,9 @@ class Database
         $release_date = date('Y-m-d H:i:s', strtotime($release_date));
 
         //check if movie has been released
-        if (strtotime($release_date) < time()) {
+   /*      if (strtotime($release_date) < time()) {
             throw new Exception('Movie has already been released');
-        }
+        } */
         // check if already in database
         $precheck = $this->db->prepare('SELECT * FROM movies WHERE user_id = :user_id AND movie_id = :movie_id');
         $precheck->bindParam('user_id', $user_id);
