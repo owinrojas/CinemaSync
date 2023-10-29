@@ -101,9 +101,25 @@ function createMovieCard(movie) {
 
         saveButton.addEventListener("click", function(event) {
             console.log(`Movie ${movie.id} saved!`);
-            iconElement.className = "fa-solid fa-bookmark";
+        
+            fetch(`http://movie.test/api.php?a=addmovie&movie_id=${movie.id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    console.log(data); // Log the response data from the server
+                    iconElement.className = "fa-solid fa-bookmark";
+                })
+                .catch(error => {
+                    console.error("There was a problem with the fetch operation:", error);
+                });
+        
             event.stopPropagation(); // Prevent the event from bubbling up to parent elements
         });
+        
 
         // Append the saveButton to the movieCard
         movieCard.append(saveButton);
