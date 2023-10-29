@@ -104,7 +104,13 @@ body, h1, h2, p, a, div {
     padding: 5px;
     background-color: rgba(0, 0, 0, 0.6);
     color: white;
+    font-family: comic sans-serif;
     border-radius: 5px;
     z-index: 2;
+
+    white-space: nowrap;      /* Text will not wrap into the next line */
+    overflow: hidden;         /* Hide the overflow text */
+    text-overflow: ellipsis;  /* Add ellipsis (...) to indicate text has been truncated */
+    max-width: 180px;         /* Set the maximum width */
   }
   
