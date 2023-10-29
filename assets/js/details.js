@@ -28,7 +28,9 @@ async function populateRecommendedMovies(movieId, containerId) {
     container.appendChild(title);
 
     recommendedMovies.forEach(movie => {
-        const movieCard = createMovieCard(movie);
+        const movieCard = createMovieCard(movie, (clickedMovie) => {
+            window.location.href = `details.html?movieId=${clickedMovie.id}`;
+        });
         container.appendChild(movieCard);
     });
 }
@@ -68,7 +70,8 @@ async function populateMovieDetails(movieId) {
     }
 }
 // Helper function to create a movie card
-function createMovieCard(movie) {
+// Helper function to create a movie card
+function createMovieCard(movie, onCardClick) {
     const movieCard = document.createElement('div');
     movieCard.className = 'movie-card';
     
@@ -79,9 +82,15 @@ function createMovieCard(movie) {
     const movieImage = document.createElement('img');
     movieImage.src = `${imageBaseURL}w500${movie.backdrop_path}`;
     movieCard.appendChild(movieImage);
+
+    // Attach the click event to the card if onCardClick is provided
+    if (onCardClick) {
+        movieCard.addEventListener('click', () => onCardClick(movie));
+    }
   
     return movieCard;
 }
+
 
 // Fetch and populate movie details on page load
 document.addEventListener("DOMContentLoaded", function() {
