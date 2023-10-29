@@ -28,8 +28,10 @@ if (isset($_SESSION['email'])) {
     <nav class="navbar">
         <div class="navbar-content">
             <div class="navbar-links">
+                <a href="index.php">Home</a>
                 <a href="#about-us">About Us</a>
-                <a href="#register-login">Register/Login</a>
+                <a href="login.php">Login</a>
+                <a href="register.php">Register</a>
             </div>
         </div>
     </nav>
