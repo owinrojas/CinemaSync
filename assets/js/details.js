@@ -16,25 +16,23 @@ async function fetchRecommendedMovies(movieId) {
     return response.results;
 }
 
+// Function to populate recommended movies
 async function populateRecommendedMovies(movieId, containerId) {
     const recommendedMovies = await fetchRecommendedMovies(movieId);
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    // Clear the container first
-    container.innerHTML = '';
+    // Add a title for the Recommended Movies section
+    const title = document.createElement('h2');
+    title.textContent = "Recommended Movies:";
+    container.appendChild(title);
 
-    if (recommendedMovies.length > 0) {
-        // Add a title for the Recommended Movies section only if there are any
-        const title = document.createElement('h2');
-        title.textContent = "Recommended Movies:";
-        container.appendChild(title);
-
-        recommendedMovies.forEach(movie => {
-            const movieCard = createMovieCard(movie);
-            container.appendChild(movieCard);
+    recommendedMovies.forEach(movie => {
+        const movieCard = createMovieCard(movie, function(clickedMovie) {
+            window.location.href = `details.html?movieId=${clickedMovie.id}`;
         });
-    }
+        container.appendChild(movieCard);
+});
 }
 
 // Function to populate movie details
