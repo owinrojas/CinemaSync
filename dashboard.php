@@ -10,6 +10,10 @@ if (!isset($_SESSION['email'])) {
 
 $user = $db->getUser($_SESSION['email']); // get user from session
 
+if (isset($_REQUEST['delete'])) {
+    $db->RemoveMovieByUser($_REQUEST['delete'], $user->getData('id'));
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +31,7 @@ $user = $db->getUser($_SESSION['email']); // get user from session
     <nav class="navbar bg-body-tertiary">
 
         <div class="container-fluid">
-            <a href="dashboard.php" class="navbar-brand">CinemaSync</a>
+            <a href="index.php" class="navbar-brand">CinemaSync</a>
             <!--Logout-->
             <div class="d-flex align-items-center">
                 <a class="btn btn-dark px-3" href="logout.php" role="button">Log out</a>
@@ -62,12 +66,7 @@ $user = $db->getUser($_SESSION['email']); // get user from session
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- TODO: finish making logic for table -->
-                                <td>FNAF</td>
-                                <td>2023-01-01</td>
-                                <td>
-                                    <button type="button" class="btn btn-danger">Delete</button>
-                                </td>
+                                <?= $db->GenTable($user->getData('id')); ?>
                             </tbody>
                         </table>
                     </div>

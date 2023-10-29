@@ -18,7 +18,7 @@ if (isset($_SESSION['email'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FullertonProj</title>
+    <title>CinemaSync</title>
     <link rel="stylesheet" href="assets/css/styles.css">
     <script src="https://kit.fontawesome.com/7183df4a39.js" crossorigin="anonymous"></script>
 </head>
@@ -74,8 +74,6 @@ if (isset($_SESSION['email'])) {
         <?php
         if ($loggedIn) : // If the user is logged in, show whatever is below this
         ?>
-
-
 
             <div id="search-results" class="category-container"> <!--Conveniently move this out of the if statement if wanting to test without being logged in-->
                 <div class="movies-container">

@@ -254,6 +254,32 @@ class Database
         return $stmt->fetchAll();
     }
 
+    function GenTable($id): string
+    {
+        $data = $this->GetMoviesByUser($id);
+        $htmlCode = '';
+        foreach ($data as $row) {
+            $release_date = date('Y-m-d', strtotime($row['release_date']));
+            $htmlCode .= '
+        <tr>
+            <th>' . $row['movie_name'] . '</th>
+            <td>' . $release_date . '</td>
+            <td><a href="?delete=' . $row['id'] . '">
+            <button type="button" class="btn btn-danger">Delete</button>
+            </a></td>
+        </tr>
+       ';
+        }
+        return $htmlCode;
+    }
+
+    function RemoveMovieByUser($id, $uid){
+        $stmt = $this->db->prepare('DELETE FROM movies WHERE id = :id AND user_id = :userid ');
+        $stmt->bindParam('id', $id);
+        $stmt->bindParam('userid', $uid);
+        $stmt->execute();
+    }
+
     /**
      * The function GetUpcomingMovies retrieves all movies that are releasing within the next 24 hours.
      * 
