@@ -68,6 +68,12 @@ if (isset($_SESSION['email'])) {
         </div>
     </div>
 
+    <section class = "copyright" id = "copyright">
+        <div class = "copyright-content">
+        <a href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ">© CinemaSync 2023</a>
+        </div>
+    </section>
+
     </main>
     <script defer src="assets/js/script.js"></script>
 </body>

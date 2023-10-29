@@ -56,6 +56,12 @@ if (isset($_SESSION['email'])) {
         </div>
     </section>
 
+    <section class = "copyright" id = "copyright">
+        <div class = "copyright-content">
+        <a href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ">© CinemaSync 2023</a>
+        </div>
+    </section>
+
 <!--All navbar stuff below. Leave alone!--->
     <nav class="navbar">
         <div class="navbar-content">
@@ -76,7 +82,6 @@ if (isset($_SESSION['email'])) {
                 if ($loggedIn) :
                 ?>
                     <a href="dashboard.php">Dashboard</a>
-                    <a href="dashboard.php">Saved Movies</a>
                     <a href="dashboard.php">Logout</a>
 
                 <?php else : //else show the login / register buttons
