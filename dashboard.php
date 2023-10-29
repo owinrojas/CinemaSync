@@ -31,7 +31,7 @@ if (isset($_REQUEST['delete'])) {
     <nav class="navbar bg-body-tertiary">
 
         <div class="container-fluid">
-            <a href="dashboard.php" class="navbar-brand">CinemaSync</a>
+            <a href="index.php" class="navbar-brand">CinemaSync</a>
             <!--Logout-->
             <div class="d-flex align-items-center">
                 <a class="btn btn-dark px-3" href="logout.php" role="button">Log out</a>
