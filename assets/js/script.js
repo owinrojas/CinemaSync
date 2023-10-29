@@ -102,7 +102,7 @@ function createMovieCard(movie) {
         saveButton.addEventListener("click", function(event) {
             console.log(`Movie ${movie.id} saved!`);
         
-            fetch(`http://movie.test/api.php?a=addmovie&movie_id=${movie.id}`)
+            fetch(`http://cinemasync.test/api.php?a=addmovie&movie_id=${movie.id}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
