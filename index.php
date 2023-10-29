@@ -49,8 +49,7 @@ if (isset($_SESSION['email'])) {
                 if ($loggedIn) :
                 ?>
                     <a href="dashboard.php">Dashboard</a>
-                    <a href="dashboard.php">Saved Movies</a>
-                    <a href="dashboard.php">Logout</a>
+                    <a href="logout.php">Logout</a>
 
                 <?php else : //else show the login / register buttons 
                 ?>
