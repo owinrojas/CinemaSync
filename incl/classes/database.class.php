@@ -171,7 +171,7 @@ class Database
         $release_date = date('Y-m-d H:i:s', strtotime($release_date));
 
         //check if movie has been released
-   /*      if (strtotime($release_date) < time()) {
+        /*      if (strtotime($release_date) < time()) {
             throw new Exception('Movie has already been released');
         } */
         // check if already in database
@@ -273,7 +273,8 @@ class Database
         return $htmlCode;
     }
 
-    function RemoveMovieByUser($id, $uid){
+    function RemoveMovieByUser($id, $uid)
+    {
         $stmt = $this->db->prepare('DELETE FROM movies WHERE id = :id AND user_id = :userid ');
         $stmt->bindParam('id', $id);
         $stmt->bindParam('userid', $uid);
@@ -287,11 +288,8 @@ class Database
      */
     function GetUpcomingMovies(): mixed
     {
-        $stmt = $this->db->prepare('SELECT *
-        FROM movies
-        WHERE release_date >= NOW() AND release_date <= DATE_ADD(NOW(), INTERVAL 72 HOUR)
-        AND email_sent IS NULL;
-        ');
+        $stmt = $this->db->prepare('SELECT * FROM movies WHERE email_sent IS NULL AND release_date >= NOW();');
+
         $stmt->execute();
         return $stmt->fetchAll();
     }

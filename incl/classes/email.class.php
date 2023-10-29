@@ -38,6 +38,13 @@ class Email
     function sendMail($subject, $message): bool
     {
         $headers = "From: " . $this->sender;
-        return mail($this->sender, $subject, $message, $headers);
+
+        if (mail($this->recipient, $subject, $message, $headers)) {
+            return true;
+        } else {
+            // Check for errors
+            echo "Email not sent. Error: " . error_get_last()['message'];
+            return false;
+        }
     }
 }
