@@ -45,6 +45,27 @@ class Database
     }
 
     /**
+     * function returns a User object by user id
+     * @param $email
+     * @return User|null
+     */
+    function getUserById($uid): User|null
+    {
+        $stmt = $this->db->prepare('SELECT * FROM users WHERE id = :id');
+        $stmt->bindParam('id', $uid);
+        $stmt->execute();
+
+        if ($stmt->rowCount() === 0) {
+            return null;
+        }
+        foreach ($stmt->fetchAll() as $row) {
+            $id = $row['id'];
+            return new User($id, $this);
+        }
+        return null;
+    }
+
+    /**
      * Function to validate user login
      * @param $email
      * @param $password
@@ -208,12 +229,59 @@ class Database
         $stmt->bindParam('id', $id);
         $stmt->execute();
     }
-
-    function getMovies()
+    // function get all saved movies from database
+    function getMovies(): mixed
     {
         $stmt = $this->db->prepare('SELECT * FROM movies');
         $stmt->execute();
         return $stmt->fetchAll();
+    }
+
+    /**
+     * The function GetMoviesByUser retrieves all movies associated with a specific user ID from a
+     * database.
+     * 
+     * @param id The parameter "id" is the user ID that is used to filter the movies. The function
+     * retrieves all movies from the database that are associated with the specified user ID.
+     * 
+     * @return an array of movies that belong to a specific user, identified by their user ID.
+     */
+    function GetMoviesByUser($id): mixed
+    {
+        $stmt = $this->db->prepare('SELECT * FROM movies WHERE user_id = :id');
+        $stmt->bindParam('id', $id);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * The function GetUpcomingMovies retrieves all movies that are releasing within the next 24 hours.
+     * 
+     * @return an array of upcoming movies that have a release date within the next 24 hours.
+     */
+    function GetUpcomingMovies(): mixed
+    {
+        $stmt = $this->db->prepare('SELECT *
+        FROM movies
+        WHERE release_date >= NOW() AND release_date <= DATE_ADD(NOW(), INTERVAL 72 HOUR)
+        AND email_sent IS NULL;
+        ');
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * The function "reminderSent" updates the "email" column of the "movies" table to 1 for the
+     * specified "id".
+     * 
+     * @param id The "id" parameter is the unique identifier of a movie in the database.
+     */
+    function reminderSent($id): void
+    {
+
+        $stmt = $this->db->prepare('UPDATE movies SET email_sent = 1, updated_at = NOW() WHERE id = :id');
+        $stmt->bindParam('id', $id);
+        $stmt->execute();
     }
 
 

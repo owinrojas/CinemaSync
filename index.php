@@ -1,5 +1,4 @@
 <?php
-//TODO: make dashboard for movies and stuff
 $loggedIn = false;
 require 'incl/config.inc.php';
 //ensure user is logged in
@@ -7,8 +6,11 @@ if (isset($_SESSION['email'])) {
     $loggedIn = true;
     $user = $db->getUser($_SESSION['email']); // get user from session
 }
-
 ?>
+
+<script type="text/javascript">
+    var isLoggedIn = <?php echo $loggedIn ? 'true' : 'false'; ?>;
+</script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +20,7 @@ if (isset($_SESSION['email'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FullertonProj</title>
     <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="https://kit.fontawesome.com/7183df4a39.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -34,12 +37,12 @@ if (isset($_SESSION['email'])) {
             <?php
             if ($loggedIn) : // If the user is logged in, show the search bar
             ?>
-            <input type="text" id="search-bar" placeholder="Search..." onkeyup="searchMovies(event)">
+                <input type="text" id="search-bar" placeholder="Search..." onkeyup="searchMovies(event)">
             <?php endif; //End if
             ?>
 
             <div class="navbar-links">
-                <a href="aboutUs.php">About Us</a>
+                <a href="#about-us">About Us</a>
 
                 <?php
                 // if user is logged in, show the dashboard button
@@ -49,11 +52,11 @@ if (isset($_SESSION['email'])) {
                     <a href="dashboard.php">Saved Movies</a>
                     <a href="dashboard.php">Logout</a>
 
-                <?php else : //else show the login / register buttons
+                <?php else : //else show the login / register buttons 
                 ?>
                     <a href="login.php">Login</a>
                     <a href="register.php">Register</a>
-                <?php endif; //End if
+                <?php endif; //End if 
                 ?>
 
             </div>
@@ -70,48 +73,59 @@ if (isset($_SESSION['email'])) {
         <div id="genre-list"></div> <!--Conveniently move this out of the if statement if wanting to test without being logged in-->
 
         <?php
-        if($loggedIn): // If the user is logged in, show whatever is below this
+        if ($loggedIn) : // If the user is logged in, show whatever is below this
         ?>
 
 
 
-        <div id="search-results" class="category-container"> <!--Conveniently move this out of the if statement if wanting to test without being logged in-->
-            <div class="movies-container">
+            <div id="search-results" class="category-container"> <!--Conveniently move this out of the if statement if wanting to test without being logged in-->
+                <div class="movies-container">
+                </div>
             </div>
-        </div>
 
-        <div class="category-container" id="popular-movies">
-            <h2>Popular Movies</h2>
-            <div class="movies-container"></div>
-        </div>
+            <div class="category-container" id="coming-soon">
+                <h2>Upcoming</h2>
+                <div class="movies-container"></div>
+            </div>
 
-        <div class="category-container" id="top-rated">
-            <h2>Top Rated</h2>
-            <div class="movies-container"></div>
-        </div>
+            <div class="category-container" id="popular-movies">
+                <h2>Popular Movies</h2>
+                <div class="movies-container"></div>
+            </div>
+
+            <div class="category-container" id="top-rated">
+                <h2>Top Rated</h2>
+                <div class="movies-container"></div>
+            </div>
         <?php endif; //End if
         ?>
     </div>
 
     <div id="movie-modal">
         <div class="modal-content">
-            <button class="close-btn" onclick="closeModal()">Close X</button>
+            <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-square-xmark"></i>
+            </button>
+
             <div class="modal-header">
-                <div class="modal-title-details">
-                    <h2 id="modal-title"></h2>  <!--Title of the movie-->
-                    <p id="modal-genre"></p>    <!--Genre of the movie-->
-                    <p id="modal-cast"></p>     <!--Cast of the movie-->
+                <div id="modal-trailer-container"></div>
+            </div>
+
+            <div class="modal-title-details">
+                <img id="modal-poster" src="">
+
+                <div class="text-details">
+                    <h2 id="modal-title"></h2>
+                    <p id="modal-genre"></p>
+                    <div id="modal-release-date"></div>
+                    <p id="modal-cast"></p>
                     <p id="modal-overview"></p>
                 </div>
-            </div>
-            <div class="modal-main-content">
-                <img id="modal-poster" src="">
-                <div id="modal-trailer-container"></div>
             </div>
         </div>
     </div>
 
-    <script defer src="assets/js/script.js"></script>
+    <script src="assets/js/script.js"></script>
+
 
 </body>
 
