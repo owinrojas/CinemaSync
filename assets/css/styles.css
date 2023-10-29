@@ -227,7 +227,7 @@ body {
     border: none;
     cursor: pointer;
     font-size: 16px;
-    color: #fff;
+    color: red;
     z-index: 10;
   }
 
@@ -309,4 +309,94 @@ body {
     flex-grow: 1;
     margin: 10px 0;
     overflow: auto; 
+}
+
+.purposeBanner {
+  background-color: #333;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.purposeBanner-content {
+  text-align: center;
+}
+
+.purposeBanner-content h1 {
+  color: white;
+  font-size: 6.5em;
+}
+
+.purposeBanner-content p {
+  color: white;
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+.purpose{
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 70rem;
+  line-height: 1.5;
+  font-size: 1.7rem;
+}
+
+.about .biography p{
+  text-align: center;
+  margin: 2rem auto;
+  max-width: 70rem;
+  line-height: 1.5;
+  font-size: 1.7rem;
+}
+
+.about .biography .bio {
+  margin: 1rem;
+  text-align: center;
+}
+
+.about .biography .bio h3{
+  padding: 1rem 2 rem;
+  display: inline-block;
+  margin: 1rem;
+  background-color: var(--light-bg);
+  border: var(--border-light);
+  word-break: break-all;
+  font-size: 2.5rem;
+  font-weight: normal;
+  text-transform: none;
+}
+
+.about .biography .bio h3 span {
+  font-weight: lighten;
+}
+
+.theTeamBanner {
+  background-color: gray;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theTeamBanner-content {
+  text-align: center;
+}
+
+.theTeamBanner-content h1 {
+  color: black;
+  font-size: 6.5em;
+}
+
+.theTeamBanner-content p {
+  color: black;
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+.sourcesUsed .sourcesUsed-content {
+  text-align: center;
+  color: black;
+  font-size: 1.2em;
+  margin-top: 10px;
 }

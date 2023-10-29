@@ -21,29 +21,40 @@ if (isset($_SESSION['email'])) {
 </head>
 
 <body>
-    <section class="banner">
-        <div class="banner-content">
-            <h1>About Us</h1>
-            <p>Popcorn everyone!</p>
+    <section class="purposeBanner">
+        <div class="purposeBanner-content">
+            <h1>Purpose</h1>
+            <p>Why use Cinemasync?</p>
         </div>
     </section>
 
+    <section class = "purpose" id = "purpose">
+        <div class = "purpose-content">
+            <h3>Welcome to Cinemasync, your go-to destination for a new era of entertainment that prioritizes your privacy. At Cinemasync, we believe that you shouldn't have to sacrifice your personal data to enjoy the latest movies and TV shows. Our platform is built on a foundation of trust, security, and respect for your privacy.</h3>
+        </div>
+    </section>
 
+    <section class="theTeamBanner">
+        <div class="theTeamBanner-content">
+            <h1>The Team</h1>
+            <p>The great minds of this website!</p>
+        </div>
+    </section>
 
     <section class = "about" id = "about">
-        <h1 class ="heading"> <span>The Team</span> </h1>
-
         <div class = "biography">
-            <p>The developers of the website</p>
             <div class = "bio">
-                <h3> <span>name : </span> Owin Rojas </h3>
-                <h3> <span>name : </span> Ulysses Carbajal </h3>
-                <h3> <span>name : </span> Yazid Soulong </h3>
+                <h3> <span>Owin Rojas </span></h3>
+                <h3> <span>Ulysses Carbajal</span></h3>
+                <h3> <span>Yazid Soulong</span></h3>
         </div>
     </section>
 
-
-
+    <section class = "sourcesUsed" id = "sourcesUsed">
+        <div class = "sourcesUsed-content">
+            The website is powered by:<a href = "https://www.themoviedb.org/"> themoviedb</a>
+        </div>
+    </section>
 
 <!--All navbar stuff below. Leave alone!--->
     <nav class="navbar">

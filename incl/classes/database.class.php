@@ -264,13 +264,21 @@ class Database
         <tr>
             <th>' . $row['movie_name'] . '</th>
             <td>' . $release_date . '</td>
-            <td><button type="button" class="btn btn-danger">Delete</button></td>
+            <td><a href="?delete=' . $row['id'] . '">
+            <button type="button" class="btn btn-danger">Delete</button>
+            </a></td>
         </tr>
        ';
         }
         return $htmlCode;
     }
 
+    function RemoveMovieByUser($id, $uid){
+        $stmt = $this->db->prepare('DELETE FROM movies WHERE id = :id AND user_id = :userid ');
+        $stmt->bindParam('id', $id);
+        $stmt->bindParam('userid', $uid);
+        $stmt->execute();
+    }
 
     /**
      * The function GetUpcomingMovies retrieves all movies that are releasing within the next 24 hours.
