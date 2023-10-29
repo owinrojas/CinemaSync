@@ -120,7 +120,7 @@ if (isset($_SESSION['email'])) {
             </div>
         </div>
     </div>
-
+            
     <script src="assets/js/script.js"></script>
 
 
