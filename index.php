@@ -75,8 +75,6 @@ if (isset($_SESSION['email'])) {
         if ($loggedIn) : // If the user is logged in, show whatever is below this
         ?>
 
-
-
             <div id="search-results" class="category-container"> <!--Conveniently move this out of the if statement if wanting to test without being logged in-->
                 <div class="movies-container">
                 </div>
