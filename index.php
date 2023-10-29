@@ -42,7 +42,7 @@ if (isset($_SESSION['email'])) {
             ?>
 
             <div class="navbar-links">
-                <a href="#about-us">About Us</a>
+                <a href="aboutUs.php">About Us</a>
 
                 <?php
                 // if user is logged in, show the dashboard button
