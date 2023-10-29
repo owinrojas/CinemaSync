@@ -1,4 +1,4 @@
- 'use strict';
+'use strict';
 
 const api_key = 'd679741f03a2925a326fb72686aa6130';
 const imageBaseURL = 'https://image.tmdb.org/t/p/';
@@ -70,6 +70,22 @@ document.addEventListener('click', function (event) {
 
 //==Movie Card Functions==
 
+// Global variable to store saved movies
+let savedMovies = [];
+
+// Fetch saved movies once when the page loads or user logs in
+if (isLoggedIn) {
+    fetch('http://movie.test/api.php?a=getsavedmovies')
+    .then(response => response.json())
+    .then(data => {
+        savedMovies = data.map(movie => movie.movie_id);
+        console.log("Updated savedMovies array:", savedMovies);
+    })
+    .catch(error => {
+        console.error("There was a problem with the fetch operation:", error);
+    });
+}
+
 // Function to create a movie card
 function createMovieCard(movie) {
     // Create the card and its components
@@ -94,15 +110,23 @@ function createMovieCard(movie) {
     // Create and attach the Save Movie Button only if user is logged in
     console.log("Is user logged in?", isLoggedIn);
     if (isLoggedIn) {
+        console.log("Creating save button for movie:", movie.id);
         saveButton = document.createElement("button");
         const iconElement = document.createElement("i");
-        iconElement.className = "fa-regular fa-bookmark";
+
+        // Check if the movie is already saved
+        if (savedMovies.includes(movie.id)) {
+            iconElement.className = "fa-solid fa-bookmark";
+        } else {
+            iconElement.className = "fa-regular fa-bookmark";
+        }
+
         saveButton.appendChild(iconElement);
 
         saveButton.addEventListener("click", function(event) {
             console.log(`Movie ${movie.id} saved!`);
-        
-            fetch(`http://cinemasync.test/api.php?a=addmovie&movie_id=${movie.id}`)
+            
+            fetch(`http://movie.test/api.php?a=addmovie&movie_id=${movie.id}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Network response was not ok");
@@ -111,15 +135,18 @@ function createMovieCard(movie) {
                 })
                 .then(data => {
                     console.log(data); // Log the response data from the server
+                    
+                    if (!savedMovies.includes(movie.id)) {
+                        savedMovies.push(movie.id);
+                    }
                     iconElement.className = "fa-solid fa-bookmark";
                 })
                 .catch(error => {
                     console.error("There was a problem with the fetch operation:", error);
                 });
-        
+            
             event.stopPropagation(); // Prevent the event from bubbling up to parent elements
         });
-        
 
         // Append the saveButton to the movieCard
         movieCard.append(saveButton);
@@ -127,20 +154,22 @@ function createMovieCard(movie) {
 
     // Append all other elements to the card
     movieCard.append(movieImage, movieTitleYear, movieRating);
-                //?maybe somethin with php
- // Event to open modal on card click or navigate to details page
- movieCard.addEventListener('click', (event) => {
-    console.log("Is user logged in?", isLoggedIn);
-    if (isLoggedIn) {
-        populateRecommendedMovies(movie.id, 'recommendations-container');  // Changed movieId to movie.id
-        window.location.href = `details.html?movieId=${movie.id}`;
-    } else {
-        openMovieModal(movie);
-    }
-});
 
+    // Existing event listener for card click
+    movieCard.addEventListener('click', (event) => {
+        console.log("Is user logged in?", isLoggedIn);
+        if (isLoggedIn) {
+            populateRecommendedMovies(movie.id, 'recommendations-container');
+            window.location.href = `details.html?movieId=${movie.id}`;
+        } else {
+            openMovieModal(movie);
+        }
+    });
+
+    
     return movieCard;
 }
+
 
 
 // Function to populate movies by category
@@ -329,11 +358,3 @@ if (genreId) {
         }
     }
 }
-
-
-
-
-
-
-
-

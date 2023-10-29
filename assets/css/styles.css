@@ -228,7 +228,8 @@ body {
     cursor: pointer;
     font-size: 16px;
     color: red;
-    z-index: 10;
+    z-index: 100;
+    
   }
 
 

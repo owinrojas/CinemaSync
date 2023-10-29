@@ -21,6 +21,8 @@ if (isset($_SESSION['email'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FullertonProj</title>
     <link rel="stylesheet" href="assets/css/styles.css">
+    <script src="https://kit.fontawesome.com/7183df4a39.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
