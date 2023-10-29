@@ -1,0 +1,55 @@
+
+//==Search Functions==
+
+
+
+
+function searchMovies(event) {
+    const searchField = document.getElementById("search-bar");
+    const searchResultsContainer = document.getElementById("search-results");
+    const movieGrid = searchResultsContainer.querySelector(".movies-container");
+    const titleElement = document.querySelector('#Search-title');
+
+
+    if (!movieGrid) {
+        console.error('Error: Unable to locate the movieGrid element.');
+        return;
+    }
+
+    const popularContainer = document.getElementById("popular-movies");
+    const nowPlayingContainer = document.getElementById("now-playing");
+    const topRatedContainer = document.getElementById("top-rated");
+    const comingSoonContainer = document.getElementById("coming-soon");
+
+    const query = searchField.value.trim();
+
+    if (!query) {
+        titleElement.style.display = "none";  
+        searchResultsContainer.style.display = "none";
+        popularContainer.style.display = "block";
+        nowPlayingContainer.style.display = "block";
+        topRatedContainer.style.display = "block";
+        comingSoonContainer.style.display = "block";
+        return;
+    }
+
+    clearTimeout(window.searchTimeout);
+    window.searchTimeout = setTimeout(async function () {
+        const response = await apiRequest(`/search/movie?query=${query}&language=en-US&page=1`);
+        movieGrid.innerHTML = "";
+        popularContainer.style.display = "none";
+        nowPlayingContainer.style.display = "none";
+        topRatedContainer.style.display = "none";
+        comingSoonContainer.style.display = "none";
+        titleElement.style.display = "block"; 
+        searchResultsContainer.style.display = "block";
+
+        if (titleElement) {
+            titleElement.textContent = query ? `Search Results for "${query}"` : "Showing All Results";
+        }
+        response.results.forEach(movie => {
+            const movieCard = createMovieCard(movie);
+            movieGrid.appendChild(movieCard);
+        });
+    }, 500);
+}

@@ -74,13 +74,13 @@ if (isset($_SESSION['email'])) {
 
         <?php
         if ($loggedIn) : // If the user is logged in, show whatever is below this
-        ?>
+            ?>
 
             <div id="search-results" class="category-container"> <!--Conveniently move this out of the if statement if wanting to test without being logged in-->
+            <h2 id="Search-title">Search for</h2>
                 <div class="movies-container">
                 </div>
             </div>
-
             <div class="category-container" id="coming-soon">
                 <h2>Upcoming</h2>
                 <div class="movies-container"></div>
@@ -121,10 +121,7 @@ if (isset($_SESSION['email'])) {
             </div>
         </div>
     </div>
-    
-    <section class = "copyright" id = "copyright">
-        <div class = "copyright-content">
-        <a href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ">© CinemaSync 2023</a>
+
         </div>
     </section>
 
