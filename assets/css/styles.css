@@ -400,3 +400,10 @@ body {
   font-size: 1.2em;
   margin-top: 10px;
 }
+
+.copyright .copyright-content {
+  text-align: center;
+  color: black;
+  font-size: 1.2em;
+  margin-top: 10px;
+}
