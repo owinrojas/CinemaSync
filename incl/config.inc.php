@@ -6,7 +6,7 @@ include 'classes/email.class.php'; // email class
 
 
 $DB_HOST = 'localhost'; // usually localhost
-$DB_NAME = 'cinemasync'; // database name
+$DB_NAME = 'movies'; // database name
 $DB_USER = 'root'; // database username
 $DB_PASSWORD = ''; //database password
 $EMAIL_SENDER = 'movie@movies.slakjd.com'; // set the sender email
