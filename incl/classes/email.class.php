@@ -19,12 +19,12 @@ class Email
         }
     }
 
-    function reminderEmail($movie, $date): void
+    function reminderEmail($movie, $date): bool
     {
         $subject = "Reminder for \"" . $movie . "\""; // email subject
         $message = "You have a movie coming up on " . $date . " called \"" . $movie . "\". Don't forget to book your ticket!"; // email message
 
-        $this->sendMail($subject, $message);
+        return  $this->sendMail($subject, $message);
     }
 
     /**

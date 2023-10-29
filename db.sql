@@ -21,12 +21,13 @@ CREATE TABLE IF NOT EXISTS `movies` (
   `movie_id` int NOT NULL,
   `movie_name` varchar(50) NOT NULL DEFAULT '',
   `release_date` timestamp NOT NULL,
+  `email_sent` tinyint(1) DEFAULT NULL,
   `updated_at` timestamp NOT NULL,
   `created_at` timestamp NOT NULL,
   KEY `id` (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3  COLLATE=utf8mb3_unicode_ci;
 
 -- Data exporting was unselected.
 
@@ -39,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` timestamp NOT NULL,
   `created_at` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3  COLLATE=utf8mb3_unicode_ci;
 
 -- Data exporting was unselected.
 

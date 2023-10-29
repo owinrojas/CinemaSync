@@ -38,8 +38,14 @@ switch ($action) {
         }
 
         break;
-    case 'checkmovie':
-
+    case 'getsavedmovies':
+        header('Content-Type: application/json');
+        try {
+            $data = $db->GetMoviesByUser($user->id);
+            echo json_encode($data);
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
         break;
 
     default:
