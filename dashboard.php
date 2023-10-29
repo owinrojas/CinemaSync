@@ -10,6 +10,10 @@ if (!isset($_SESSION['email'])) {
 
 $user = $db->getUser($_SESSION['email']); // get user from session
 
+if (isset($_REQUEST['delete'])) {
+    $db->RemoveMovieByUser($_REQUEST['delete'], $user->getData('id'));
+}
+
 ?>
 
 <!DOCTYPE html>
