@@ -254,6 +254,24 @@ class Database
         return $stmt->fetchAll();
     }
 
+    function GenTable($id): string
+    {
+        $data = $this->GetMoviesByUser($id);
+        $htmlCode = '';
+        foreach ($data as $row) {
+            $release_date = date('Y-m-d', strtotime($row['release_date']));
+            $htmlCode .= '
+        <tr>
+            <th>' . $row['movie_name'] . '</th>
+            <td>' . $release_date . '</td>
+            <td><button type="button" class="btn btn-danger">Delete</button></td>
+        </tr>
+       ';
+        }
+        return $htmlCode;
+    }
+
+
     /**
      * The function GetUpcomingMovies retrieves all movies that are releasing within the next 24 hours.
      * 

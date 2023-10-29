@@ -62,12 +62,7 @@ $user = $db->getUser($_SESSION['email']); // get user from session
                                 </tr>
                             </thead>
                             <tbody>
-                                <!-- TODO: finish making logic for table -->
-                                <td>FNAF</td>
-                                <td>2023-01-01</td>
-                                <td>
-                                    <button type="button" class="btn btn-danger">Delete</button>
-                                </td>
+                                <?= $db->GenTable($user->getData('id')); ?>
                             </tbody>
                         </table>
                     </div>
