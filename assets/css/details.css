@@ -63,54 +63,58 @@ body, h1, h2, p, a, div {
     margin-bottom: 15px;
   }
   
-  /* Clear floats */
-  .clear {
-    clear: both;
-  }
-  
-  #recommendations-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 30px;
-    margin-top: 30px;
-  }
-  
-  .movie-card {
-    position: relative; 
-    width: 200px;
-    height: 300px; 
-    overflow: hidden; 
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  }
-  
-  .movie-card img {
-    position: absolute; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    border-radius: 10px;
-    z-index: 1; 
-  }
-  
-  .movie-card h3 {
-    position: absolute; 
-    top: 10px;
-    left: 10px;
-    margin: 0;
-    padding: 5px;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
-    font-family: comic sans-serif;
-    border-radius: 5px;
-    z-index: 2;
+/* Clear floats */
+.clear {
+  clear: both;
+}
 
-    white-space: nowrap;      /* Text will not wrap into the next line */
-    overflow: hidden;         /* Hide the overflow text */
-    text-overflow: ellipsis;  /* Add ellipsis (...) to indicate text has been truncated */
-    max-width: 180px;         /* Set the maximum width */
-  }
-  
+#recommendations-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.movie-card {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;  
+}
+
+.movie-card:hover {
+  cursor: pointer;
+  transform: scale(1.20);
+}
+
+.movie-card img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.movie-card h3 {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  margin: 0;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-family: comic sans-serif;
+  border-radius: 5px;
+  z-index: 2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}

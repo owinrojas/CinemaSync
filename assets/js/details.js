@@ -12,7 +12,7 @@ async function apiRequest(endpoint) {
 // Function to fetch recommended movies based on movie ID
 async function fetchRecommendedMovies(movieId) {
     const response = await apiRequest(`/movie/${movieId}/recommendations?language=en-US&page=1`);
-    console.log(response);  
+    console.log(response);
     return response.results;
 }
 
@@ -23,16 +23,18 @@ async function populateRecommendedMovies(movieId, containerId) {
     if (!container) return;
 
     // Add a title for the Recommended Movies section
-    const title = document.createElement('h2');
-    title.textContent = "Recommended Movies:";
-    container.appendChild(title);
+    if (recommendedMovies.length > 0) {
+        const title = document.createElement('h2');
+        title.textContent = "Recommended Movies:";
+        container.appendChild(title);
 
-    recommendedMovies.forEach(movie => {
-        const movieCard = createMovieCard(movie, function(clickedMovie) {
-            window.location.href = `details.html?movieId=${clickedMovie.id}`;
+        recommendedMovies.forEach(movie => {
+            const movieCard = createMovieCard(movie, function (clickedMovie) {
+                window.location.href = `details.html?movieId=${clickedMovie.id}`;
+            });
+            container.appendChild(movieCard);
         });
-        container.appendChild(movieCard);
-});
+    }
 }
 
 // Function to populate movie details
@@ -44,24 +46,24 @@ async function populateMovieDetails(movieId) {
     document.getElementById("movie-title").textContent = `${movieDetails.title} (${year})`;
     document.getElementById("movie-release-date").textContent = `Release Date: ${movieDetails.release_date}`;
     document.getElementById("movie-genre").textContent = `Genre: ${movieDetails.genres.map(genre => genre.name).join(", ")}`;
-    
+
     // Add Cast information
     document.getElementById("movie-cast").textContent = `Cast: ${movieDetails.casts.cast.slice(0, 10).map(actor => actor.name).join(", ")}`;
-    
+
     // Add Rating
     document.getElementById("movie-rating").textContent = `Rating: ${movieDetails.vote_average}`;
-    
+
     // Add Overview
     document.getElementById("movie-overview").textContent = `Overview: ${movieDetails.overview}`;
     //Add Recommendations
     populateRecommendedMovies(movieId, 'recommendations-container');
 
-    
+
     // Add Trailer
     const trailerContainer = document.getElementById('trailer-container');
     trailerContainer.innerHTML = "";
     const youtubeTrailer = movieDetails.videos.results.find(video => video.site === 'YouTube');
-    if(youtubeTrailer) {
+    if (youtubeTrailer) {
         const iframe = document.createElement('iframe');
         iframe.src = `https://www.youtube.com/embed/${youtubeTrailer.key}`;
         iframe.width = "500";
@@ -74,11 +76,11 @@ async function populateMovieDetails(movieId) {
 function createMovieCard(movie, onCardClick) {
     const movieCard = document.createElement('div');
     movieCard.className = 'movie-card';
-    
+
     const movieTitle = document.createElement('h3');
     movieTitle.textContent = movie.title;
     movieCard.appendChild(movieTitle);
-  
+
     const movieImage = document.createElement('img');
     movieImage.src = `${imageBaseURL}w500${movie.backdrop_path}`;
     movieCard.appendChild(movieImage);
@@ -87,13 +89,13 @@ function createMovieCard(movie, onCardClick) {
     if (onCardClick) {
         movieCard.addEventListener('click', () => onCardClick(movie));
     }
-  
+
     return movieCard;
 }
 
 
 // Fetch and populate movie details on page load
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
     const movieId = urlParams.get('movieId');
     if (movieId) {
