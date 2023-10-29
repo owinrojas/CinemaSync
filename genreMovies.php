@@ -32,8 +32,19 @@ if (isset($_SESSION['email'])) {
             <div class="navbar-links">
                 <a href="index.php">Home</a>
                 <a href="#about-us">About Us</a>
-                <a href="login.php">Login</a>
-                <a href="register.php">Register</a>
+                <?php
+                // if user is logged in, show the dashboard button
+                if ($loggedIn) :
+                ?>
+                    <a href="dashboard.php">Dashboard</a>
+                    <a href="logout.php">Logout</a>
+
+                <?php else : //else show the login / register buttons 
+                ?>
+                    <a href="login.php">Login</a>
+                    <a href="register.php">Register</a>
+                <?php endif; //End if 
+                ?>
             </div>
         </div>
     </nav>
