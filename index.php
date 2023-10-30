@@ -70,7 +70,6 @@ if (isset($_SESSION['email'])) {
             <div class="movies-container"></div>
         </div>
 
-        <div id="genre-list"></div> <!--Conveniently move this out of the if statement if wanting to test without being logged in-->
 
         <?php
         if ($loggedIn) : // If the user is logged in, show whatever is below this
@@ -81,6 +80,9 @@ if (isset($_SESSION['email'])) {
                 <div class="movies-container">
                 </div>
             </div>
+
+                <div id="genre-list"></div> 
+
             <div class="category-container" id="coming-soon">
                 <h2>Upcoming</h2>
                 <div class="movies-container"></div>
